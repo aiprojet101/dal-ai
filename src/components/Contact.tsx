@@ -19,7 +19,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 relative">
+    <section id="contact" className="py-20 relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[200px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">

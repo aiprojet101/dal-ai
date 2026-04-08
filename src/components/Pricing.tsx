@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
+import TextReveal from "@/components/animations/TextReveal";
 
 const plans = [
   {
@@ -63,12 +64,7 @@ export default function Pricing() {
   return (
     <section id="tarifs" className="py-32 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <TextReveal className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Tarifs
           </span>
@@ -79,7 +75,7 @@ export default function Pricing() {
             Pas de surprises. Chaque offre inclut le design, le developpement,
             l&apos;hebergement et le support.
           </p>
-        </motion.div>
+        </TextReveal>
 
         <div className="grid md:grid-cols-3 gap-6 items-start">
           {plans.map((plan, i) => (

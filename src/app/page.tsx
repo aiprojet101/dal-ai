@@ -11,15 +11,18 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ProjectAnalyzer from "@/components/ProjectAnalyzer";
+import SmoothScroll from "@/components/SmoothScroll";
+import Marquee from "@/components/animations/Marquee";
 
 export default function Home() {
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
 
   return (
-    <>
+    <SmoothScroll>
       <Navbar onAnalyze={() => setAnalyzerOpen(true)} />
       <main>
         <Hero onAnalyze={() => setAnalyzerOpen(true)} />
+        <Marquee text="Dal-AI  —  Web Design  —  E-Commerce  —  Applications  —  SEO  —  Branding  —" />
         <Services />
         <Pricing />
         <Process />
@@ -32,6 +35,6 @@ export default function Home() {
         isOpen={analyzerOpen}
         onClose={() => setAnalyzerOpen(false)}
       />
-    </>
+    </SmoothScroll>
   );
 }

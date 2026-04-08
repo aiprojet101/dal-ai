@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import TextReveal from "@/components/animations/TextReveal";
 
 const testimonials = [
   {
@@ -34,12 +35,7 @@ export default function Testimonials() {
   return (
     <section id="avis" className="py-32 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <TextReveal className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Temoignages
           </span>
@@ -47,7 +43,7 @@ export default function Testimonials() {
             Ce que disent{" "}
             <span className="gradient-text">nos clients</span>
           </h2>
-        </motion.div>
+        </TextReveal>
 
         <div className="grid md:grid-cols-2 gap-6">
           {testimonials.map((t, i) => (

@@ -1,57 +1,97 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ExternalLink, Globe, Smartphone } from "lucide-react";
+import TextReveal from "@/components/animations/TextReveal";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "Maison Duval",
+    title: "Aromisa",
     category: "Site Vitrine",
-    description: "Restaurant gastronomique — identite visuelle et reservation en ligne",
-    gradient: "from-purple-600 to-blue-500",
+    url: "https://aromisa.fr",
+    description: "Marque de parfums et cosmetiques — site vitrine elegant avec catalogue produits et univers de marque",
+    gradient: "from-rose-500 to-purple-600",
+    icon: Globe,
+    tags: ["Design", "Branding", "SEO"],
   },
   {
-    title: "TechFlow",
+    title: "Aromisa App",
+    category: "Application Mobile",
+    url: "#",
+    description: "Application mobile compagnon — programme fidelite, catalogue interactif et notifications personnalisees",
+    gradient: "from-purple-500 to-pink-500",
+    icon: Smartphone,
+    tags: ["React Native", "API", "UX"],
+  },
+  {
+    title: "Dunsfrance",
+    category: "Site Vitrine",
+    url: "https://dunsfrance.fr",
+    description: "Entreprise de services — site corporate professionnel avec presentation des activites et formulaire de contact",
+    gradient: "from-blue-600 to-indigo-500",
+    icon: Globe,
+    tags: ["Corporate", "Responsive", "SEO"],
+  },
+  {
+    title: "MK Food Truck",
+    category: "Site Vitrine",
+    url: "https://mkfoodtruck.fr",
+    description: "Food truck — menu interactif, localisation en temps reel et systeme de commande en ligne",
+    gradient: "from-orange-500 to-red-500",
+    icon: Globe,
+    tags: ["Menu", "Geoloc", "Commande"],
+  },
+  {
+    title: "Le Treize",
     category: "Application Web",
-    description: "SaaS de gestion de projet pour equipes tech — dashboard complet",
-    gradient: "from-cyan-500 to-emerald-500",
-  },
-  {
-    title: "Boutique Elise",
-    category: "E-Commerce",
-    description: "Marque de mode ethique — e-shop avec 500+ references",
-    gradient: "from-pink-500 to-orange-400",
-  },
-  {
-    title: "CabinetConseil+",
-    category: "Site Vitrine",
-    description: "Cabinet de conseil en transformation digitale — lead generation",
-    gradient: "from-indigo-500 to-purple-500",
-  },
-  {
-    title: "GreenBuild",
-    category: "Application Web",
-    description: "PMI construction durable — portail client et suivi de chantier",
-    gradient: "from-emerald-500 to-teal-400",
-  },
-  {
-    title: "Dr. Martin",
-    category: "Site Vitrine",
-    description: "Cabinet medical — prise de RDV en ligne et fiches patients",
-    gradient: "from-blue-500 to-cyan-400",
+    url: "https://letreize.fr",
+    description: "Jeu de cartes en ligne — plateforme multijoueur avec classements, tournois et systeme de saisons",
+    gradient: "from-emerald-500 to-cyan-500",
+    icon: Globe,
+    tags: ["Gaming", "Temps reel", "Dashboard"],
   },
 ];
 
 export default function Portfolio() {
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cards = cardsRef.current;
+    if (!cards) return;
+
+    const items = cards.querySelectorAll(".portfolio-card");
+
+    gsap.fromTo(
+      items,
+      { y: 80, opacity: 0, scale: 0.95 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: cards,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
   return (
     <section id="portfolio" className="py-32 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <TextReveal className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Portfolio
           </span>
@@ -59,30 +99,65 @@ export default function Portfolio() {
             Nos <span className="gradient-text">realisations</span>
           </h2>
           <p className="mt-4 text-muted max-w-2xl mx-auto text-lg">
-            Chaque projet est unique. Voici quelques-unes de nos collaborations
-            recentes.
+            Des projets reels, des resultats concrets. Decouvrez ce que nous
+            avons construit pour nos clients.
           </p>
-        </motion.div>
+        </TextReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <motion.div
+        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <a
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative rounded-2xl overflow-hidden border border-border hover:border-primary/40 transition-colors cursor-pointer"
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="portfolio-card group relative rounded-2xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-500 cursor-pointer hover:shadow-[0_0_30px_rgba(108,92,231,0.15)]"
             >
+              {/* Gradient background with hover effect */}
               <div
-                className={`aspect-[16/10] bg-gradient-to-br ${project.gradient} opacity-20 group-hover:opacity-30 transition-opacity`}
+                className={`aspect-[16/10] bg-gradient-to-br ${project.gradient} opacity-15 group-hover:opacity-30 transition-all duration-700`}
               >
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-3/4 h-3/4 rounded-lg border border-white/10 bg-white/5" />
+                <div className="w-full h-full flex items-center justify-center relative">
+                  {/* Mock browser window */}
+                  <div className="w-[80%] h-[75%] rounded-lg border border-white/10 bg-white/5 overflow-hidden group-hover:scale-105 transition-transform duration-700">
+                    {/* Browser bar */}
+                    <div className="h-6 bg-white/5 flex items-center px-2 gap-1.5">
+                      <div className="w-2 h-2 rounded-full bg-red-400/40" />
+                      <div className="w-2 h-2 rounded-full bg-yellow-400/40" />
+                      <div className="w-2 h-2 rounded-full bg-green-400/40" />
+                      <div className="ml-2 flex-1 h-3 rounded bg-white/5 max-w-[60%]" />
+                    </div>
+                    {/* Content placeholder */}
+                    <div className="p-3 space-y-2">
+                      <div className="h-2 bg-white/5 rounded w-3/4" />
+                      <div className="h-2 bg-white/5 rounded w-1/2" />
+                      <div className="h-8 bg-white/5 rounded mt-3" />
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div className="h-6 bg-white/5 rounded" />
+                        <div className="h-6 bg-white/5 rounded" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Floating icon */}
+                  <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-white/10 backdrop-blur flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <project.icon size={18} className="text-white/60" />
+                  </div>
                 </div>
               </div>
 
-              <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-surface via-surface/80 to-transparent">
+              {/* Info overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-surface via-surface/90 to-transparent">
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary-light uppercase tracking-wider"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <span className="text-xs text-accent font-medium uppercase tracking-wider">
                   {project.category}
                 </span>
@@ -90,12 +165,14 @@ export default function Portfolio() {
                   {project.title}
                   <ExternalLink
                     size={14}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity text-muted"
+                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-muted"
                   />
                 </h3>
-                <p className="mt-1 text-sm text-muted">{project.description}</p>
+                <p className="mt-1 text-sm text-muted leading-relaxed">
+                  {project.description}
+                </p>
               </div>
-            </motion.div>
+            </a>
           ))}
         </div>
       </div>

@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { ExternalLink, Globe, Smartphone } from "lucide-react";
+
+type ProjectType = "site" | "app";
 
 const projects = [
   {
     title: "Aromisa",
+    type: "site" as ProjectType,
     category: "Application Web PWA",
     url: "https://aromisa.fr",
     image: "https://image.thum.io/get/width/600/crop/900/https://aromisa.fr",
@@ -14,17 +18,8 @@ const projects = [
     tags: ["IA Gemini", "PWA", "Sante"],
   },
   {
-    title: "Aromisa App",
-    category: "Application Mobile",
-    url: "https://aromisa.fr/app",
-    image: "https://image.thum.io/get/width/600/crop/900/https://aromisa.fr/app",
-    description: "App compagnon — analyse IA en 10 secondes, defis quotidiens, badges et partage social",
-    gradient: "from-emerald-500 to-teal-400",
-    icon: Smartphone,
-    tags: ["Mobile-first", "Gamification", "IA"],
-  },
-  {
     title: "DunsFrance",
+    type: "site" as ProjectType,
     category: "Micro-SaaS",
     url: "https://dunsfrance.fr",
     image: "https://image.thum.io/get/width/600/crop/900/https://dunsfrance.fr",
@@ -35,6 +30,7 @@ const projects = [
   },
   {
     title: "MK Food Truck",
+    type: "site" as ProjectType,
     category: "Site Vitrine",
     url: "https://mkfoodtruck.fr",
     image: "https://image.thum.io/get/width/600/crop/900/https://mkfoodtruck.fr",
@@ -44,7 +40,19 @@ const projects = [
     tags: ["Menu", "Contact", "Responsive"],
   },
   {
+    title: "Aromisa App",
+    type: "app" as ProjectType,
+    category: "Application Mobile",
+    url: "https://aromisa.fr/app",
+    image: "https://image.thum.io/get/width/600/crop/900/https://aromisa.fr/app",
+    description: "App compagnon — analyse IA en 10 secondes, defis quotidiens, badges et partage social",
+    gradient: "from-emerald-500 to-teal-400",
+    icon: Smartphone,
+    tags: ["Mobile-first", "Gamification", "IA"],
+  },
+  {
     title: "Le Treize",
+    type: "app" as ProjectType,
     category: "Application Web",
     url: "https://letreize.fr",
     image: "https://image.thum.io/get/width/600/crop/900/https://letreize.fr",
@@ -55,11 +63,19 @@ const projects = [
   },
 ];
 
+const tabs = [
+  { key: "site" as ProjectType, label: "Sites Web", icon: Globe },
+  { key: "app" as ProjectType, label: "Applications", icon: Smartphone },
+];
+
 export default function Portfolio() {
+  const [activeTab, setActiveTab] = useState<ProjectType>("site");
+  const filtered = projects.filter((p) => p.type === activeTab);
+
   return (
     <section id="portfolio" className="py-20 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Portfolio
           </span>
@@ -72,8 +88,29 @@ export default function Portfolio() {
           </p>
         </div>
 
+        {/* Tabs */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex rounded-xl border border-border bg-surface p-1 gap-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+                  activeTab === tab.key
+                    ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg"
+                    : "text-muted hover:text-foreground hover:bg-surface-light"
+                }`}
+              >
+                <tab.icon size={16} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+          {filtered.map((project) => (
             <a
               key={project.title}
               href={project.url}

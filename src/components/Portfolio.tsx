@@ -98,8 +98,8 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              {/* Info overlay */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-surface via-surface/90 to-transparent">
+              {/* Info section */}
+              <div className="p-5 bg-surface">
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {project.tags.map((tag) => (
                     <span

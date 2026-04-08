@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { projectType, sector, objective, budget, timeline } =
+    const { projectType, sector, objective, budget, timeline, description } =
       await req.json();
 
     const prompt = `Tu es un expert consultant en creation de sites web chez Dal-AI, une agence web francaise premium.
@@ -24,6 +24,7 @@ REPONSES DU PROSPECT :
 - Objectif principal : ${objective}
 - Budget approximatif : ${budget}
 - Delai souhaite : ${timeline}
+${description ? `- Description libre du projet : ${description}` : ""}
 
 OFFRES DAL-AI :
 1. Essentiel (1 290 EUR) : Site vitrine 5 pages, responsive, SEO de base, livraison 2 semaines

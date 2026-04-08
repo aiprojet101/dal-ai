@@ -92,13 +92,16 @@ export default function ProjectAnalyzer({
 }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [freeDescription, setFreeDescription] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState(false);
+  const totalSteps = steps.length + 1; // +1 for free description step
 
   const reset = () => {
     setCurrentStep(0);
     setAnswers({});
+    setFreeDescription("");
     setAnalyzing(false);
     setResult(null);
     setError(false);
@@ -109,30 +112,29 @@ export default function ProjectAnalyzer({
     setTimeout(reset, 300);
   };
 
-  const selectOption = async (value: string) => {
+  const selectOption = (value: string) => {
     const step = steps[currentStep];
     const newAnswers = { ...answers, [step.key]: value };
     setAnswers(newAnswers);
+    setCurrentStep(currentStep + 1);
+  };
 
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      // All questions answered — analyze
-      setAnalyzing(true);
-      try {
-        const res = await fetch("/api/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newAnswers),
-        });
-        if (!res.ok) throw new Error("API error");
-        const data = await res.json();
-        setResult(data);
-      } catch {
-        setError(true);
-      } finally {
-        setAnalyzing(false);
-      }
+  const submitAnalysis = async () => {
+    setAnalyzing(true);
+    try {
+      const payload = { ...answers, description: freeDescription };
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("API error");
+      const data = await res.json();
+      setResult(data);
+    } catch {
+      setError(true);
+    } finally {
+      setAnalyzing(false);
     }
   };
 
@@ -140,7 +142,8 @@ export default function ProjectAnalyzer({
     if (currentStep > 0) setCurrentStep(currentStep - 1);
   };
 
-  const progress = ((currentStep + (result ? 1 : 0)) / steps.length) * 100;
+  const progress = ((currentStep + (result ? 1 : 0)) / totalSteps) * 100;
+  const isDescriptionStep = currentStep === steps.length;
 
   return (
     <AnimatePresence>
@@ -186,7 +189,7 @@ export default function ProjectAnalyzer({
                       ? "Analyse terminee"
                       : analyzing
                       ? "Analyse en cours..."
-                      : `Question ${currentStep + 1}/${steps.length}`}
+                      : `Etape ${currentStep + 1}/${totalSteps}`}
                   </p>
                 </div>
               </div>
@@ -201,8 +204,8 @@ export default function ProjectAnalyzer({
             {/* Content */}
             <div className="p-6 min-h-[350px] flex flex-col">
               <AnimatePresence mode="wait">
-                {/* Questions */}
-                {!analyzing && !result && !error && (
+                {/* Option-based questions */}
+                {!analyzing && !result && !error && !isDescriptionStep && (
                   <motion.div
                     key={`step-${currentStep}`}
                     initial={{ opacity: 0, x: 20 }}
@@ -245,6 +248,54 @@ export default function ProjectAnalyzer({
                         Retour
                       </button>
                     )}
+                  </motion.div>
+                )}
+
+                {/* Free description step */}
+                {!analyzing && !result && !error && isDescriptionStep && (
+                  <motion.div
+                    key="step-description"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex-1 flex flex-col"
+                  >
+                    <h2 className="text-xl font-bold mb-2">
+                      Decrivez votre projet en quelques mots
+                    </h2>
+                    <p className="text-sm text-muted mb-4">
+                      Facultatif — mais plus vous etes precis, plus notre analyse sera pertinente.
+                    </p>
+
+                    <textarea
+                      value={freeDescription}
+                      onChange={(e) => setFreeDescription(e.target.value)}
+                      placeholder="Ex : Je suis boulanger a Lyon et je veux un site pour presenter mes produits, mes horaires et permettre les commandes en ligne..."
+                      rows={5}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-surface-light text-foreground placeholder:text-muted/50 text-sm leading-relaxed resize-none focus:outline-none focus:border-primary/50 transition-colors"
+                    />
+
+                    <div className="mt-auto pt-4 flex items-center justify-between">
+                      <button
+                        onClick={goBack}
+                        className="flex items-center gap-1 text-sm text-muted hover:text-foreground transition-colors"
+                      >
+                        <ArrowLeft size={14} />
+                        Retour
+                      </button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={submitAnalysis}
+                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm flex items-center gap-2 glow"
+                      >
+                        <Sparkles size={16} />
+                        Analyser mon projet
+                        <ArrowRight size={16} />
+                      </motion.button>
+                    </div>
                   </motion.div>
                 )}
 

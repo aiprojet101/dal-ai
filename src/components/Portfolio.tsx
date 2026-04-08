@@ -1,7 +1,6 @@
 "use client";
 
 import { ExternalLink, Globe, Smartphone } from "lucide-react";
-import Image from "next/image";
 
 const projects = [
   {
@@ -84,13 +83,12 @@ export default function Portfolio() {
             >
               {/* Real screenshot */}
               <div className="aspect-[16/10] relative overflow-hidden">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={project.image}
                   alt={`Screenshot de ${project.title}`}
-                  fill
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  unoptimized
+                  loading="eager"
+                  className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-10 group-hover:opacity-5 transition-opacity duration-500`} />
                 <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-black/30 backdrop-blur flex items-center justify-center group-hover:scale-110 transition-transform">

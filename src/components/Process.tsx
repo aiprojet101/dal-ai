@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MessageSquare, PenTool, Code2, Rocket } from "lucide-react";
-import TextReveal from "@/components/animations/TextReveal";
+
 
 const steps = [
   {
@@ -39,7 +39,13 @@ export default function Process() {
   return (
     <section id="processus" className="py-32 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <TextReveal className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Notre processus
           </span>
@@ -51,7 +57,7 @@ export default function Process() {
             Un processus rode en 4 etapes pour livrer votre projet dans les
             temps et sans stress.
           </p>
-        </TextReveal>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, i) => (

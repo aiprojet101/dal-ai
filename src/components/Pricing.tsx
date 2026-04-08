@@ -2,13 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
-import TextReveal from "@/components/animations/TextReveal";
+
 
 const plans = [
   {
     name: "Essentiel",
     target: "Particuliers & Auto-entrepreneurs",
-    price: "990",
+    price: "1 290",
     description: "Un site vitrine professionnel pour lancer votre presence en ligne.",
     features: [
       "Site vitrine jusqu'a 5 pages",
@@ -25,7 +25,7 @@ const plans = [
   {
     name: "Business",
     target: "PME & Startups",
-    price: "2 490",
+    price: "3 490",
     description: "Un site complet avec tout ce qu'il faut pour convertir et se developper.",
     features: [
       "Site jusqu'a 15 pages",
@@ -43,8 +43,8 @@ const plans = [
   {
     name: "Enterprise",
     target: "PMI & Grandes entreprises",
-    price: "Sur devis",
-    description: "Solutions sur-mesure : e-commerce, applications web, systemes complexes.",
+    price: "6 900",
+    description: "Solutions sur-mesure : e-commerce, applications web, systemes complexes. A partir de 6 900 EUR.",
     features: [
       "Pages illimitees",
       "E-commerce ou application web",
@@ -64,7 +64,13 @@ export default function Pricing() {
   return (
     <section id="tarifs" className="py-32 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <TextReveal className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Tarifs
           </span>
@@ -75,7 +81,7 @@ export default function Pricing() {
             Pas de surprises. Chaque offre inclut le design, le developpement,
             l&apos;hebergement et le support.
           </p>
-        </TextReveal>
+        </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6 items-start">
           {plans.map((plan, i) => (
@@ -104,16 +110,13 @@ export default function Pricing() {
               </div>
 
               <div className="mb-6">
-                {plan.price === "Sur devis" ? (
-                  <span className="text-3xl font-bold gradient-text">
-                    Sur devis
-                  </span>
-                ) : (
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted">EUR</span>
-                  </div>
-                )}
+                <div className="flex items-baseline gap-1">
+                  {plan.name === "Enterprise" && (
+                    <span className="text-sm text-muted mr-1">a partir de</span>
+                  )}
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  <span className="text-muted">EUR</span>
+                </div>
                 <p className="text-sm text-muted mt-2">{plan.description}</p>
               </div>
 

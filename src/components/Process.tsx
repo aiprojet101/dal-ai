@@ -39,13 +39,7 @@ export default function Process() {
   return (
     <section id="processus" className="py-20 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Notre processus
           </span>
@@ -57,16 +51,12 @@ export default function Process() {
             Un processus rode en 4 etapes pour livrer votre projet dans les
             temps et sans stress.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, i) => (
-            <motion.div
+            <div
               key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
               className="relative p-8 rounded-2xl bg-surface border border-border group hover:border-primary/30 transition-colors"
             >
               {i < steps.length - 1 && (
@@ -85,7 +75,7 @@ export default function Process() {
               <p className="mt-2 text-muted text-[15px] leading-relaxed">
                 {step.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

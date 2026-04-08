@@ -70,13 +70,7 @@ export default function Services() {
   return (
     <section id="services" className="py-20 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Nos services
           </span>
@@ -88,7 +82,7 @@ export default function Services() {
             De la conception au deploiement, nous gerons chaque etape pour vous
             livrer un site qui performe.
           </p>
-        </motion.div>
+        </div>
 
         <motion.div
           variants={containerVariants}

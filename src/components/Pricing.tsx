@@ -64,13 +64,7 @@ export default function Pricing() {
   return (
     <section id="tarifs" className="py-20 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Tarifs
           </span>
@@ -81,16 +75,12 @@ export default function Pricing() {
             Pas de surprises. Chaque offre inclut le design, le developpement,
             l&apos;hebergement et le support.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6 items-start">
           {plans.map((plan, i) => (
-            <motion.div
+            <div
               key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
               className={`relative p-8 rounded-2xl border ${
                 plan.popular
                   ? "bg-surface border-primary/50 glow"
@@ -142,7 +132,7 @@ export default function Pricing() {
               >
                 {plan.cta}
               </a>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

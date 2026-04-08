@@ -1,7 +1,6 @@
 "use client";
 
 import { ExternalLink, Globe, Smartphone } from "lucide-react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 const projects = [
@@ -61,13 +60,7 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="py-20 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Portfolio
           </span>
@@ -78,19 +71,15 @@ export default function Portfolio() {
             Des projets reels, des resultats concrets. Decouvrez ce que nous
             avons construit pour nos clients.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <motion.a
+          {projects.map((project) => (
+            <a
               key={project.title}
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
               className="group relative rounded-2xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-500 cursor-pointer hover:shadow-[0_0_30px_rgba(108,92,231,0.15)]"
             >
               {/* Real screenshot */}
@@ -104,7 +93,6 @@ export default function Portfolio() {
                   unoptimized
                 />
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-10 group-hover:opacity-5 transition-opacity duration-500`} />
-                {/* Floating icon */}
                 <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-black/30 backdrop-blur flex items-center justify-center group-hover:scale-110 transition-transform">
                   <project.icon size={18} className="text-white/80" />
                 </div>
@@ -136,7 +124,7 @@ export default function Portfolio() {
                   {project.description}
                 </p>
               </div>
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>

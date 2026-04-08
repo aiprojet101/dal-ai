@@ -35,13 +35,7 @@ export default function Testimonials() {
   return (
     <section id="avis" className="py-20 relative">
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <span className="text-sm font-medium text-accent uppercase tracking-widest">
             Temoignages
           </span>
@@ -49,16 +43,12 @@ export default function Testimonials() {
             Ce que disent{" "}
             <span className="gradient-text">nos clients</span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {testimonials.map((t, i) => (
-            <motion.div
+            <div
               key={t.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
               className="p-8 rounded-2xl bg-surface border border-border"
             >
               <Quote size={24} className="text-primary/30 mb-4" />
@@ -83,7 +73,7 @@ export default function Testimonials() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

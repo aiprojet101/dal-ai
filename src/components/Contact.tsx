@@ -147,7 +147,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-sm text-muted">Telephone</div>
-                    <div className="text-sm font-medium">+33 1 23 45 67 89</div>
+                    <div className="text-sm font-medium">+33 7 43 28 93 93</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

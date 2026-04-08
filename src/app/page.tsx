@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -7,13 +10,16 @@ import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ProjectAnalyzer from "@/components/ProjectAnalyzer";
 
 export default function Home() {
+  const [analyzerOpen, setAnalyzerOpen] = useState(false);
+
   return (
     <>
-      <Navbar />
+      <Navbar onAnalyze={() => setAnalyzerOpen(true)} />
       <main>
-        <Hero />
+        <Hero onAnalyze={() => setAnalyzerOpen(true)} />
         <Services />
         <Pricing />
         <Process />
@@ -22,6 +28,10 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <ProjectAnalyzer
+        isOpen={analyzerOpen}
+        onClose={() => setAnalyzerOpen(false)}
+      />
     </>
   );
 }

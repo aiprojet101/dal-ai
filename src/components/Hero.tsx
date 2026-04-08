@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-export default function Hero() {
+export default function Hero({ onAnalyze }: { onAnalyze?: () => void }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Gradient orbs */}
@@ -45,18 +45,19 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <motion.a
-              href="#contact"
+            <motion.button
+              onClick={onAnalyze}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="group px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold text-lg flex items-center gap-2 glow"
+              className="group px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold text-lg flex items-center gap-2 glow cursor-pointer"
             >
-              Lancer mon projet
+              <Sparkles size={18} />
+              Analyser mon projet gratuitement
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
               />
-            </motion.a>
+            </motion.button>
             <motion.a
               href="#portfolio"
               whileHover={{ scale: 1.03 }}

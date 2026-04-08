@@ -13,7 +13,7 @@ const links = [
   { label: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onAnalyze }: { onAnalyze?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -53,12 +53,12 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent text-white text-sm font-medium hover:opacity-90 transition-opacity"
+          <button
+            onClick={onAnalyze}
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent text-white text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
           >
-            Devis gratuit
-          </a>
+            Analyser mon projet
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -90,13 +90,12 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="mt-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent text-white text-sm font-medium text-center"
+              <button
+                onClick={() => { setMobileOpen(false); onAnalyze?.(); }}
+                className="mt-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent text-white text-sm font-medium text-center cursor-pointer"
               >
-                Devis gratuit
-              </a>
+                Analyser mon projet
+              </button>
             </div>
           </motion.div>
         )}

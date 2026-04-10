@@ -40,6 +40,17 @@ const projects = [
     tags: ["Menu", "Contact", "Responsive"],
   },
   {
+    title: "AudoVTC",
+    type: "site" as ProjectType,
+    category: "Site Vitrine",
+    url: "https://audovtc.fr",
+    image: "https://image.thum.io/get/width/600/crop/900/https://audovtc.fr",
+    description: "Chauffeur VTC a Saint-Omer — reservation en ligne, tarifs transparents et service premium 24h/24",
+    gradient: "from-slate-600 to-zinc-800",
+    icon: Globe,
+    tags: ["VTC", "Reservation", "Premium"],
+  },
+  {
     title: "Aromisa App",
     type: "app" as ProjectType,
     category: "Application Mobile",

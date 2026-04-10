@@ -51,6 +51,17 @@ const projects = [
     tags: ["VTC", "Reservation", "Premium"],
   },
   {
+    title: "Le Treize",
+    type: "site" as ProjectType,
+    category: "Site Vitrine",
+    url: "https://letreize.fr",
+    image: "/portfolio/letreize.png",
+    description: "Landing page du jeu de cartes vietnamien — regles, modes de jeu, video et telechargement",
+    gradient: "from-amber-600 to-yellow-500",
+    icon: Globe,
+    tags: ["Gaming", "Landing Page", "Conversion"],
+  },
+  {
     title: "Aromisa App",
     type: "app" as ProjectType,
     category: "Application Mobile",

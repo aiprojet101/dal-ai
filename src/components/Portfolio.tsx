@@ -40,6 +40,17 @@ const projects = [
     tags: ["Menu", "Contact", "Responsive"],
   },
   {
+    title: "Evenmia",
+    type: "site" as ProjectType,
+    category: "Site Vitrine",
+    url: "https://evenmia.fr",
+    image: "/portfolio/evenmia.png",
+    description: "Organisatrice d'evenements a Saint-Omer — mariages, anniversaires, soirees d'entreprise sur mesure",
+    gradient: "from-pink-500 to-purple-500",
+    icon: Globe,
+    tags: ["Evenementiel", "Sur mesure", "Elegance"],
+  },
+  {
     title: "AudoVTC",
     type: "site" as ProjectType,
     category: "Site Vitrine",

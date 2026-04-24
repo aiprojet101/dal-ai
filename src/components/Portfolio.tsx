@@ -40,6 +40,17 @@ const projects = [
     tags: ["Menu", "Contact", "Responsive"],
   },
   {
+    title: "Noesis",
+    type: "site" as ProjectType,
+    category: "Media IA",
+    url: "https://noesisnews.fr",
+    image: "/portfolio/noesisnews.png",
+    description: "Media IA francophone 100% automatise — l'IA expliquee en 3 minutes par jour, newsletter quotidienne",
+    gradient: "from-violet-600 to-fuchsia-500",
+    icon: Globe,
+    tags: ["Newsletter", "Automatisation", "IA"],
+  },
+  {
     title: "Papiers Entreprise",
     type: "site" as ProjectType,
     category: "Micro-SaaS",

@@ -40,6 +40,17 @@ const projects = [
     tags: ["Menu", "Contact", "Responsive"],
   },
   {
+    title: "Papiers Entreprise",
+    type: "site" as ProjectType,
+    category: "Micro-SaaS",
+    url: "https://papiers-entreprise.fr",
+    image: "/portfolio/papiers-entreprise.png",
+    description: "Recherche administrative express — Kbis, TVA intracom, SIRET, EORI et bilans en 2 minutes par email",
+    gradient: "from-teal-600 to-cyan-500",
+    icon: Globe,
+    tags: ["Stripe", "Kbis", "TVA VIES"],
+  },
+  {
     title: "Evenmia",
     type: "site" as ProjectType,
     category: "Site Vitrine",
